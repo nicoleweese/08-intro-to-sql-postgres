@@ -7,7 +7,7 @@ const pg = require('pg');
 const PORT = process.env.PORT || 3000;
 const app = express();
 // REVIEW: Use the client object to connect to our DB.
-const connString = 'POSTGRES:10131820ni@localhost:3000/kilovolt';
+const connString = 'postgres://postgres:postgres@localhost:5432';
 const client = new pg.Client(connString);
 client.connect();
 
@@ -21,7 +21,7 @@ app.use(express.static('./public'));
 // REVIEW: Routes for requesting HTML resources
 app.get('/new', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This is #5 of the full-stack-diagram.
   response.sendFile('new.html', {root: './public'});
 });
 
@@ -29,19 +29,19 @@ app.get('/new', (request, response) => {
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This is 3 in the full stack diagram. The fetchAll() method is interacting with this piece of code. This is a query being sent to the database and then responding to the article.js file.
   client.query('SELECT * FROM articles')
     .then(function(result) {
       response.send(result.rows);
     })
     .catch(function(err) {
-      console.error(err)
+      console.error(err);
     })
 });
 
 app.post('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This is number 2 and 3 of the full stack diagram. The insertRecord() function is using this part of the code to request from the server that it queries the database / inserts values. This is the CREATE portion of CRUD.
   client.query(
     `INSERT INTO
     articles(title, author, "authorUrl", category, "publishedOn", body)
