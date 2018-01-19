@@ -6,10 +6,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const app = express();
-
-const client = new pg.Client();
-
+const pg = require('pg');
 // REVIEW: Use the client object to connect to our DB.
+const connString = 'POSTGRES:10131820ni@HOST:PORT/DBNAME';
+const client = new pg.Client(connString);
 client.connect();
 
 
