@@ -2,14 +2,13 @@
 
 const fs = require('fs');
 const express = require('express');
-
 const bodyParser = require('body-parser');
+const pg = require('pg');
 const PORT = process.env.PORT || 3000;
 const app = express();
-
-const client = new pg.Client();
-
 // REVIEW: Use the client object to connect to our DB.
+const connString = 'POSTGRES:10131820ni@localhost:3000/kilovolt';
+const client = new pg.Client(connString);
 client.connect();
 
 
